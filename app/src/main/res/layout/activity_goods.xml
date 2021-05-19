@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/ll_category"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:gravity="center"
+    tools:context=".GoodsActivity">
+
+    <TextView
+        android:id="@+id/tv_goods"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20dp"
+        android:text="아이템"
+        />
+
+    <GridView
+        android:id="@+id/gv_goods"
+        android:layout_width="match_parent"
+        android:layout_height="500sp"
+        android:verticalSpacing="10dip"
+        android:horizontalSpacing="10dip"
+        android:layout_margin="10dp" />
+
+    <EditText
+        android:id="@+id/et_discount"
+        android:layout_width="300sp"
+        android:layout_height="wrap_content"
+        android:hint="판매할 가격을 입력해주세요"
+        />
+
+    <Button
+        android:id="@+id/btn_sell"
+        android:layout_width="300sp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="판매하기"
+        android:onClick="sell_goods"
+        />
+
+</LinearLayout>
