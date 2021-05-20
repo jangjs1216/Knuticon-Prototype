@@ -69,6 +69,7 @@ public class CategoryActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 GridView gv = (GridView)findViewById(R.id.gv);
 
+                items.clear();
                 for (final DataSnapshot data : snapshot.getChildren()) {
                     String cafeName = data.getKey();
                     items.add(new String(cafeName));

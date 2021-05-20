@@ -70,6 +70,7 @@ public class ItemActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 GridView gv = (GridView)findViewById(R.id.gv_item);
 
+                items.clear();
                 for (final DataSnapshot data : snapshot.getChildren()) {
                     String cafeName = data.getKey();
                     items.add(new String(cafeName));

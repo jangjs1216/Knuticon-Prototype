@@ -50,6 +50,22 @@
             android:clickable="true"
             android:onClick="get_goods"/>
 
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Generate Key"
+            android:id="@+id/btn_generate"
+            android:clickable="true"
+            android:onClick="generate_key"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Compare Key"
+            android:id="@+id/btn_compare"
+            android:clickable="true"
+            android:onClick="compare_key"/>
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="370dp">

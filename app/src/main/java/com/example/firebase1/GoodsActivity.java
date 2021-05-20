@@ -17,6 +17,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -27,7 +29,10 @@ import com.google.firebase.database.ValueEventListener;
 
 import org.w3c.dom.Text;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
 
 public class GoodsActivity extends AppCompatActivity {
 
@@ -46,12 +51,15 @@ public class GoodsActivity extends AppCompatActivity {
     String level1, level2, level3;
 
     //GridView Adapter
-    MyGridViewAdapter adapter;
-    ArrayList<String> items = new ArrayList<>();
+    MyGridViewAdapter3 adapter;
+    ArrayList<GoodsData> items = new ArrayList<>();
 
     //판매 올리기 구현
     EditText et_discount;
     Button btn_sell;
+
+    //가격
+    String price="0";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,23 +84,29 @@ public class GoodsActivity extends AppCompatActivity {
 
         // GridView에 정보 삽입
         getInfo();
+        getPrice();
     }
+
     public void getInfo(){
         LinearLayout linearLayout = (LinearLayout)findViewById(R.id.ll_category);
         TextView brand= new TextView(this);
         linearLayout.addView(brand);
 
-        reference.child("category").child(level1).child(level2).child(level3).addValueEventListener(new ValueEventListener() {
+        reference.child("category").child(level1).child(level2).child(level3).child("goods").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 GridView gv = (GridView)findViewById(R.id.gv_goods);
 
+                items.clear();
                 for (final DataSnapshot data : snapshot.getChildren()) {
-                    String cafeName = data.getKey();
-                    items.add(new String(cafeName));
+                    GoodsData gds = data.getValue(GoodsData.class);
+                    items.add(gds);
                 }
 
-                adapter = new MyGridViewAdapter(items, getApplicationContext());
+                adapter = new MyGridViewAdapter3(items, getApplicationContext());
+                //데이터 업데이트 ( 중복 표시 방지 )
+                adapter.notifyDataSetChanged();
+
                 gv.setAdapter(adapter);
 
                 gv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -113,14 +127,62 @@ public class GoodsActivity extends AppCompatActivity {
         brand.setText(name);
     }
 
+    public void getPrice(){
+        Log.d("####", "This place");
+        //데이터베이스에서 정가 값 가져오기
+
+        addDatabase = FirebaseDatabase.getInstance().getReference("category").child(level1).child(level2).child(level3);
+        addDatabase.child("price").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for(DataSnapshot snapshot1 : snapshot.getChildren()){
+                    Log.d("####", snapshot1.getValue().toString());
+                    price = snapshot1.getValue().toString();
+                    Log.d("####", price);
+                    Toast.makeText(getApplicationContext(), price, Toast.LENGTH_LONG).show();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
     public void sell_goods(View v){
         final FirebaseUser user = mFirebaseAuth.getInstance().getCurrentUser();
         userUrl = user.getUid();
 
-        addDatabase = FirebaseDatabase.getInstance().getReference("category").child("cafe").child("starbucks").child("icedamericano");
+        //날짜 가져오기
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd");
 
+        //데이터베이스 연동
+        addDatabase = FirebaseDatabase.getInstance().getReference("category").child(level1).child(level2).child(level3);
+
+        //텍스트뷰 값 가져오기
         String name = et_discount.getText().toString();
-        addDatabase.push().child(name);
-        addDatabase.child(name).child("name").setValue(name);
+
+        Toast.makeText(getApplicationContext(), price, Toast.LENGTH_LONG).show();
+
+        //GoodsData 객체 생성
+        GoodsData goodsData = new GoodsData(
+                Integer.parseInt(name),
+                Integer.parseInt(price),
+                dateFormat.format(new Date()),
+                user.getEmail()
+        );
+
+        String key = addDatabase.push().getKey();
+        addDatabase.child("goods").child(key).setValue(goodsData).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if(task.isSuccessful()){
+                    //삽입이 완료되면 할 행동
+                }
+            }
+        });
+//        addDatabase.child(name).child("price").setValue(name);
+//        addDatabase.child(name).child("seller").setValue(firebaseUser.getUid());
     }
 }
