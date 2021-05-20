@@ -10,7 +10,9 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -37,6 +39,7 @@ import com.google.firebase.storage.StorageReference;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -53,6 +56,9 @@ public class MainActivity extends AppCompatActivity {
     //데이터베이스 추가용
     private DatabaseReference addDatabase;
     private String userUrl = "";
+
+    //Compare Key
+    ArrayList<String> items = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -218,5 +224,41 @@ public class MainActivity extends AppCompatActivity {
 //                .centerCrop()
 //                .transition(DrawableTransitionOptions.withCrossFade())
 //                .into(iv_starbucks);
+    }
+
+    public void generate_key(View v){
+        final FirebaseUser user = mFirebaseAuth.getInstance().getCurrentUser();
+        userUrl = user.getUid();
+
+        addDatabase = FirebaseDatabase.getInstance().getReference("Storage");
+
+        //현재 키를 발급
+        String MyKey = user.getUid();
+        String RandomKey = addDatabase.push().getKey();
+        addDatabase.child(RandomKey).child("owner").setValue(MyKey);
+        addDatabase.child(RandomKey).child("Itemname").setValue(String.valueOf(Math.random()));
+    }
+
+    public void compare_key(View v){
+        reference.child("Storage").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                GridView gv = (GridView)findViewById(R.id.gv_goods);
+
+                items.clear();
+                for (final DataSnapshot data : snapshot.getChildren()) {
+                    Log.d("cmp", "Running");
+                    Log.d("cmp", data.getValue().toString());
+                    items.add(data.getValue().toString());
+                    for(final String s : data.getValue())
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 }
