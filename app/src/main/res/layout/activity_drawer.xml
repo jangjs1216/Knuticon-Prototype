@@ -19,7 +19,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="내 정보"/>
+        android:text="MY POINT"/>
 
     <TextView
         android:id="@+id/user_data"
@@ -41,5 +41,12 @@
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         android:text="보관함"/>
+
+    <Button
+        android:id="@+id/btn_logout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:text="로그아웃"/>
 
 </LinearLayout>

@@ -67,7 +67,6 @@ public class GoodsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_goods);
 
         // 에딧텍스트 가져오기
-        et_discount = (EditText)findViewById(R.id.et_discount);
         btn_sell = (Button)findViewById(R.id.btn_sell);
 
         // 태그 값 가져오기
@@ -114,6 +113,16 @@ public class GoodsActivity extends AppCompatActivity {
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                         String item_name = (String) adapter.getItem(position).toString();
                         Toast.makeText(getApplicationContext(), item_name+"이 아이템이 선택되었습니다", Toast.LENGTH_SHORT).show();
+
+                        Intent it = new Intent(getApplicationContext(), BuyActivity.class);
+                        it.putExtra("level1", level1);
+                        it.putExtra("level2", level2);
+                        it.putExtra("level3", level3);
+                        Log.e("###", items.get(position).discount+" 할인가");
+
+                        it.putExtra("price", String.valueOf(items.get(position).discount));
+                        it.putExtra("GoodsInfo", items.get(position).gifticon_uri);
+                        startActivity(it);
                     }
                 });
             }
@@ -151,38 +160,11 @@ public class GoodsActivity extends AppCompatActivity {
     }
 
     public void sell_goods(View v){
-        final FirebaseUser user = mFirebaseAuth.getInstance().getCurrentUser();
-        userUrl = user.getUid();
-
-        //날짜 가져오기
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd");
-
-        //데이터베이스 연동
-        addDatabase = FirebaseDatabase.getInstance().getReference("category").child(level1).child(level2).child(level3);
-
-        //텍스트뷰 값 가져오기
-        String name = et_discount.getText().toString();
-
-        Toast.makeText(getApplicationContext(), price, Toast.LENGTH_LONG).show();
-
-        //GoodsData 객체 생성
-        GoodsData goodsData = new GoodsData(
-                Integer.parseInt(name),
-                Integer.parseInt(price),
-                dateFormat.format(new Date()),
-                user.getEmail()
-        );
-
-        String key = addDatabase.push().getKey();
-        addDatabase.child("goods").child(key).setValue(goodsData).addOnCompleteListener(new OnCompleteListener<Void>() {
-            @Override
-            public void onComplete(@NonNull Task<Void> task) {
-                if(task.isSuccessful()){
-                    //삽입이 완료되면 할 행동
-                }
-            }
-        });
-//        addDatabase.child(name).child("price").setValue(name);
-//        addDatabase.child(name).child("seller").setValue(firebaseUser.getUid());
+        Intent it = new Intent(getApplicationContext(), SellActivity.class);
+        it.putExtra("level1", level1);
+        it.putExtra("level2", level2);
+        it.putExtra("level3", level3);
+        it.putExtra("price", price);
+        startActivity(it);
     }
 }

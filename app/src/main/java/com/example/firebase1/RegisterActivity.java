@@ -57,7 +57,7 @@ public class RegisterActivity extends AppCompatActivity {
 
                             //A. DataBase에 업로드 후 성공할 시 Toast메시지 출력
                             FirebaseFirestore db = FirebaseFirestore.getInstance();
-                            UserAccount ua = new UserAccount(firebaseUser.getUid(), firebaseUser.getEmail(), strPwd);
+                            UserAccount ua = new UserAccount(firebaseUser.getUid(), firebaseUser.getEmail(), strPwd, 0);
                             db.collection("users").document(firebaseUser.getUid()).set(ua)
                                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                                         @Override

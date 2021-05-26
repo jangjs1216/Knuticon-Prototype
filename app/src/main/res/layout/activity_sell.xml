@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".SellActivity">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="상품 판매하기"
+        android:textSize="30sp"
+        android:gravity="center"/>
+
+    <ImageView
+        android:id="@+id/iv_gifticon"
+        android:layout_width="300sp"
+        android:layout_height="300sp"
+        android:layout_gravity="center"
+        android:layout_marginBottom="50sp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:text="정가"
+        android:layout_marginLeft="20sp"/>
+
+    <TextView
+        android:id="@+id/tv_sell_price"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="40sp"
+        android:text="정가"
+        android:layout_marginLeft="20sp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:text="할인가"
+        android:layout_marginLeft="20sp"/>
+
+    <EditText
+        android:id="@+id/tv_sell_discount"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="30sp"
+        android:hint="판매할 가격을 입력해주세요"
+        android:layout_marginLeft="20sp"/>
+
+    <Button
+        android:id="@+id/tv_sell_picture"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="sell_pics"
+        android:text="사진 첨부하기"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="판매하기"
+        android:clickable="true"
+        android:onClick="sell_goods"/>
+
+</LinearLayout>

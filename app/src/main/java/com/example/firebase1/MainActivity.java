@@ -40,6 +40,9 @@ import com.google.firebase.storage.StorageReference;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -58,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
     private String userUrl = "";
 
     //Compare Key
-    ArrayList<String> items = new ArrayList<>();
+    ArrayList<GoodsData> items = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,7 +92,7 @@ public class MainActivity extends AppCompatActivity {
                     if (task.isSuccessful()) {
                         DocumentSnapshot document = task.getResult();
                         if (document != null && document.exists()) {
-                            user_data.setText(document.getData().toString());
+                            user_data.setText(document.get("point").toString()+"P");
                             Toast.makeText(MainActivity.this, "데이터베이스 다운로드에 성공하였습니다.", Toast.LENGTH_SHORT).show();
                         } else {
                             Toast.makeText(MainActivity.this, "데이터베이스 다운로드에 실패하였습니다.", Toast.LENGTH_SHORT).show();
@@ -194,37 +197,37 @@ public class MainActivity extends AppCompatActivity {
         addDatabase.push().child(name);
         addDatabase.child(name).child("name").setValue(name);
     }
-
-    public void get_goods(View v) throws IOException {
-        GetDatabase getDatabase = new GetDatabase();
-        getDatabase.print(reference.child("category").child("cafe").child("starbucks"));
-
-        ImageView iv_starbucks = (ImageView)findViewById(R.id.iv_starbucks);
-
-        FirebaseStorage storage = FirebaseStorage.getInstance();
-        StorageReference spaceRef = storage.getReference("starbucks.jpg");
-        spaceRef.getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
-            @Override
-            public void onComplete(@NonNull Task<Uri> task) {
-                if (task.isSuccessful()) {
-                    // Glide 이용하여 이미지뷰에 로딩
-                    Glide.with(MainActivity.this)
-                            .load(task.getResult())
-                            .override(1024, 980)
-                            .into(iv_starbucks);
-                } else {
-                    // URL을 가져오지 못하면 토스트 메세지
-                    Toast.makeText(MainActivity.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
-//        Log.d("###", spaceRef.toString());
-//        Glide.with(this)
-//                .load(spaceRef)
-//                .centerCrop()
-//                .transition(DrawableTransitionOptions.withCrossFade())
-//                .into(iv_starbucks);
-    }
+//
+//    public void get_goods(View v) throws IOException {
+//        GetDatabase getDatabase = new GetDatabase();
+//        getDatabase.print(reference.child("category").child("cafe").child("starbucks"));
+//
+//        ImageView iv_starbucks = (ImageView)findViewById(R.id.iv_starbucks);
+//
+//        FirebaseStorage storage = FirebaseStorage.getInstance();
+//        StorageReference spaceRef = storage.getReference("starbucks.jpg");
+//        spaceRef.getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
+//            @Override
+//            public void onComplete(@NonNull Task<Uri> task) {
+//                if (task.isSuccessful()) {
+//                    // Glide 이용하여 이미지뷰에 로딩
+//                    Glide.with(MainActivity.this)
+//                            .load(task.getResult())
+//                            .override(1024, 980)
+//                            .into(iv_starbucks);
+//                } else {
+//                    // URL을 가져오지 못하면 토스트 메세지
+//                    Toast.makeText(MainActivity.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+//                }
+//            }
+//        });
+////        Log.d("###", spaceRef.toString());
+////        Glide.with(this)
+////                .load(spaceRef)
+////                .centerCrop()
+////                .transition(DrawableTransitionOptions.withCrossFade())
+////                .into(iv_starbucks);
+//    }
 
     public void generate_key(View v){
         final FirebaseUser user = mFirebaseAuth.getInstance().getCurrentUser();
@@ -235,11 +238,22 @@ public class MainActivity extends AppCompatActivity {
         //현재 키를 발급
         String MyKey = user.getUid();
         String RandomKey = addDatabase.push().getKey();
-        addDatabase.child(RandomKey).child("owner").setValue(MyKey);
-        addDatabase.child(RandomKey).child("Itemname").setValue(String.valueOf(Math.random()));
+
+        GoodsData goodsData = new GoodsData(
+                500,
+                1000,
+                "21.01.01",
+                user.getEmail(),
+                user.getUid(),
+                "starbucks.jpg"
+        );
+
+        addDatabase.child(RandomKey).setValue(goodsData);
     }
 
     public void compare_key(View v){
+        final FirebaseUser user = mFirebaseAuth.getInstance().getCurrentUser();
+
         reference.child("Storage").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -247,12 +261,18 @@ public class MainActivity extends AppCompatActivity {
 
                 items.clear();
                 for (final DataSnapshot data : snapshot.getChildren()) {
-                    Log.d("cmp", "Running");
-                    Log.d("cmp", data.getValue().toString());
-                    items.add(data.getValue().toString());
-                    for(final String s : data.getValue())
+                    GoodsData gds = data.getValue(GoodsData.class);
+                    items.add(gds);
                 }
 
+                int count = 0;
+                for(GoodsData gds : items)
+                {
+                    if(gds.owner.equals(user.getUid()))
+                        count++;
+                }
+
+                Toast.makeText(getApplicationContext(), "현재 일치하는 개수는 "+count+"개입니다", Toast.LENGTH_LONG).show();
             }
 
             @Override

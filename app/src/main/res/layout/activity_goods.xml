@@ -25,18 +25,14 @@
         android:horizontalSpacing="10dip"
         android:layout_margin="10dp" />
 
-    <EditText
-        android:id="@+id/et_discount"
-        android:layout_width="300sp"
-        android:layout_height="wrap_content"
-        android:hint="판매할 가격을 입력해주세요"
-        />
-
     <Button
         android:id="@+id/btn_sell"
-        android:layout_width="300sp"
-        android:layout_height="wrap_content"
+        android:layout_width="100sp"
+        android:layout_height="100sp"
         android:gravity="center"
+        android:layout_gravity="right"
+        android:layout_marginRight="25sp"
+        android:layout_marginBottom="25sp"
         android:text="판매하기"
         android:onClick="sell_goods"
         />

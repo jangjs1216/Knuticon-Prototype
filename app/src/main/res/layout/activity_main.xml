@@ -24,47 +24,37 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <Button
-            android:id="@+id/btn_logout"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Logout"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+<!--        <Button-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="Input"-->
+<!--            android:id="@+id/btn_test"-->
+<!--            android:clickable="true"-->
+<!--            android:onClick="insert_goods"/>-->
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Input"
-            android:id="@+id/btn_test"
-            android:clickable="true"
-            android:onClick="insert_goods"/>
+<!--        <Button-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="Output"-->
+<!--            android:id="@+id/btn_test2"-->
+<!--            android:clickable="true"-->
+<!--            android:onClick="get_goods"/>-->
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Output"
-            android:id="@+id/btn_test2"
-            android:clickable="true"
-            android:onClick="get_goods"/>
+<!--        <Button-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="Generate Key"-->
+<!--            android:id="@+id/btn_generate"-->
+<!--            android:clickable="true"-->
+<!--            android:onClick="generate_key"/>-->
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Generate Key"
-            android:id="@+id/btn_generate"
-            android:clickable="true"
-            android:onClick="generate_key"/>
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Compare Key"
-            android:id="@+id/btn_compare"
-            android:clickable="true"
-            android:onClick="compare_key"/>
+<!--        <Button-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="Compare Key"-->
+<!--            android:id="@+id/btn_compare"-->
+<!--            android:clickable="true"-->
+<!--            android:onClick="compare_key"/>-->
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -160,12 +150,12 @@
 
         </RelativeLayout>
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@mipmap/ic_launcher"
-            android:id="@+id/iv_starbucks"
-            android:visibility="visible"/>
+<!--        <ImageView-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:src="@mipmap/ic_launcher"-->
+<!--            android:id="@+id/iv_starbucks"-->
+<!--            android:visibility="visible"/>-->
     </LinearLayout>
     <include layout="@layout/activity_drawer"/>
 </androidx.drawerlayout.widget.DrawerLayout>

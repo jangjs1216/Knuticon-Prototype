@@ -11,7 +11,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Firebase1">
-        <activity android:name=".GoodsActivity"></activity>
+        <activity android:name=".BuyActivity"></activity>
+        <activity android:name=".SellActivity" />
+        <activity android:name=".GoodsActivity" />
         <activity android:name=".ItemActivity" />
         <activity android:name=".CategoryActivity" />
         <activity android:name=".LoginActivity">

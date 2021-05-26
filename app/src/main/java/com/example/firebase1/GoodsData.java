@@ -6,19 +6,41 @@ public class GoodsData {
     //유통기한
     public String date;
     public String email;
+    public String owner;
+    public String gifticon_uri;
 
     public GoodsData() {
         discount = 0;
         price = 0;
         date = new String();
         email = new String();
+        owner = new String();
+        gifticon_uri = new String();
     }
 
-    public GoodsData(int discount, int price, String date, String email){
+    public GoodsData(int discount, int price, String date, String email, String owner, String gifticon_uri){
         this.discount = discount;
         this.price = price;
         this.date = date;
         this.email = email;
+        this.owner = owner;
+        this.gifticon_uri = gifticon_uri;
+    }
+
+    public String getOwner() {
+        return owner;
+    }
+
+    public void setOwner(String owner) {
+        this.owner = owner;
+    }
+
+    public String getGifticon_uri() {
+        return gifticon_uri;
+    }
+
+    public void setGifticon_uri(String gifticon_uri) {
+        this.gifticon_uri = gifticon_uri;
     }
 
     public int getPrice() {
