@@ -5,22 +5,34 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="#da2128"
     tools:context=".RegisterActivity">
+
+    <ImageView
+        android:id="@+id/iv_main_1"
+        android:layout_width="300sp"
+        android:layout_height="300sp"
+        android:layout_gravity="center"
+        android:src="@drawable/main_1"
+        />
 
     <EditText
         android:layout_marginTop="30dp"
         android:id="@+id/et_email"
         android:text="jongha@naver.com"
         android:hint="input email"
+        android:background="#ffffff"
         android:inputType="textEmailAddress"
         android:layout_gravity="center"
         android:layout_width="300dp"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20sp"/>
 
     <EditText
         android:id="@+id/et_pwd"
         android:hint="input pwd"
         android:text="good1234"
+        android:background="#ffffff"
         android:inputType="textPassword"
         android:layout_gravity="center"
         android:layout_width="300dp"
@@ -33,23 +45,26 @@
 
         <Button
             android:id="@+id/btn_login"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="30sp"
+            android:layout_height="30sp"
             android:layout_gravity="center"
             android:layout_weight="1"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
+            android:background="@drawable/button_loginbar"
             android:text="로그인"/>
 
         <Button
             android:id="@+id/btn_register"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="30sp"
+            android:layout_height="30sp"
             android:backgroundTint="@color/black"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:layout_gravity="center"
             android:layout_weight="1"
+            android:background="@drawable/button_loginbar"
+            android:textColor="#ffffff"
             android:text="회원 가입"/>
 
     </LinearLayout>

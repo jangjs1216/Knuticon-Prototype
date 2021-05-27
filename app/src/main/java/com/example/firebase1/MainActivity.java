@@ -70,6 +70,7 @@ public class MainActivity extends AppCompatActivity {
 
         //값을 출력할 TextView
         TextView user_data = (TextView)findViewById(R.id.user_data);
+        TextView tv_username = (TextView)findViewById(R.id.tv_username);
 
         //B. 데이터베이스에서 값 가져오는 구문
         mFirebaseAuth = FirebaseAuth.getInstance();
@@ -92,7 +93,12 @@ public class MainActivity extends AppCompatActivity {
                     if (task.isSuccessful()) {
                         DocumentSnapshot document = task.getResult();
                         if (document != null && document.exists()) {
+                            String userName = document.get("emailId").toString();
+
+                            //Userdata와 Username 받아오는 구문.
                             user_data.setText(document.get("point").toString()+"P");
+                            tv_username.setText(userName.substring(0, userName.length()-10));
+
                             Toast.makeText(MainActivity.this, "데이터베이스 다운로드에 성공하였습니다.", Toast.LENGTH_SHORT).show();
                         } else {
                             Toast.makeText(MainActivity.this, "데이터베이스 다운로드에 실패하였습니다.", Toast.LENGTH_SHORT).show();
@@ -123,22 +129,53 @@ public class MainActivity extends AppCompatActivity {
         drawerLayout = (DrawerLayout)findViewById(R.id.drawer_layout);
         drawerView = (View)findViewById(R.id.drawer);
 
-        Button btn_open = (Button)findViewById(R.id.btn_open);
+        ImageView btn_open = (ImageView)findViewById(R.id.btn_open);
         // 네비게이션 메뉴 열기
         btn_open.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                mFirebaseAuth = FirebaseAuth.getInstance();
+                FirebaseUser firebaseUser = mFirebaseAuth.getCurrentUser();
+
+                FirebaseFirestore db = FirebaseFirestore.getInstance();
+                if(firebaseUser == null){
+                    Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                    startActivity(intent);
+                }else {
+                    DocumentReference docRef = db.collection("users").document(firebaseUser.getUid());
+                    docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                            if (task.isSuccessful()) {
+                                DocumentSnapshot document = task.getResult();
+                                if (document != null && document.exists()) {
+                                    user_data.setText(document.get("point").toString()+"P");
+                                }
+                            }
+                        }
+                    });
+                }
+
                 drawerLayout.openDrawer(drawerView);
             }
         });
 
-        Button btn_close = (Button)findViewById(R.id.btn_close);
-        btn_close.setOnClickListener(new View.OnClickListener() {
+        Button btn_storage = (Button)findViewById(R.id.btn_storage);
+        btn_storage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                drawerLayout.closeDrawers();
+                Intent it = new Intent(getApplicationContext(), StorageActivity.class);
+                startActivity(it);
             }
         });
+
+//        Button btn_close = (Button)findViewById(R.id.btn_close);
+//        btn_close.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                drawerLayout.closeDrawers();
+//            }
+//        });
 
         drawerLayout.setDrawerListener(listener);
         drawerView.setOnTouchListener(new View.OnTouchListener() {
@@ -202,8 +239,6 @@ public class MainActivity extends AppCompatActivity {
 //        GetDatabase getDatabase = new GetDatabase();
 //        getDatabase.print(reference.child("category").child("cafe").child("starbucks"));
 //
-//        ImageView iv_starbucks = (ImageView)findViewById(R.id.iv_starbucks);
-//
 //        FirebaseStorage storage = FirebaseStorage.getInstance();
 //        StorageReference spaceRef = storage.getReference("starbucks.jpg");
 //        spaceRef.getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
@@ -221,12 +256,12 @@ public class MainActivity extends AppCompatActivity {
 //                }
 //            }
 //        });
-////        Log.d("###", spaceRef.toString());
-////        Glide.with(this)
-////                .load(spaceRef)
-////                .centerCrop()
-////                .transition(DrawableTransitionOptions.withCrossFade())
-////                .into(iv_starbucks);
+//        Log.d("###", spaceRef.toString());
+//        Glide.with(this)
+//                .load(spaceRef)
+//                .centerCrop()
+//                .transition(DrawableTransitionOptions.withCrossFade())
+//                .into(iv_starbucks);
 //    }
 
     public void generate_key(View v){
@@ -242,6 +277,7 @@ public class MainActivity extends AppCompatActivity {
         GoodsData goodsData = new GoodsData(
                 500,
                 1000,
+                "a",
                 "21.01.01",
                 user.getEmail(),
                 user.getUid(),

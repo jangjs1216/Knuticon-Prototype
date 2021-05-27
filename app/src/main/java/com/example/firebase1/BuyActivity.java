@@ -13,6 +13,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -30,7 +32,7 @@ import java.util.ArrayList;
 public class BuyActivity extends AppCompatActivity {
 
     //데이터베이스 연동
-    FirebaseDatabase database =FirebaseDatabase.getInstance();
+    FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference reference = database.getReference();
     private FirebaseAuth mFirebaseAuth;
 
@@ -44,6 +46,9 @@ public class BuyActivity extends AppCompatActivity {
 
     String curPoint, nextPoint;
 
+    //판매자 정보
+    String sellerPoint;
+
     //상품정보
 
     String goods_date;
@@ -51,18 +56,35 @@ public class BuyActivity extends AppCompatActivity {
     String goods_email;
     String goods_gifticon_uri;
     String goods_owner;
+    String goods_itemname;
     int goods_price;
+
+    //구매자와 판매자
+    UserInfo sellerInfo;
+    UserInfo buyerInfo;
+
+    //구매자 Key
+    String buyerKey;
+
+    Boolean isPerchase = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_buy);
 
+        isPerchase = false;
+
+        // 현재 로그인된 사용자 정보
+
+        final FirebaseUser user = mFirebaseAuth.getInstance().getCurrentUser();
+        buyerKey = user.getUid();
+
         // 텍스트뷰 아이디 가져오기
-        tv_buy_info = (TextView)findViewById(R.id.tv_buy_info);
-        tv_buy_price = (TextView)findViewById(R.id.tv_buy_price);
-        tv_cur_point = (TextView)findViewById(R.id.tv_cur_point);
-        tv_next_point = (TextView)findViewById(R.id.tv_next_point);
+        tv_buy_info = (TextView) findViewById(R.id.tv_buy_info);
+        tv_buy_price = (TextView) findViewById(R.id.tv_buy_price);
+        tv_cur_point = (TextView) findViewById(R.id.tv_cur_point);
+        tv_next_point = (TextView) findViewById(R.id.tv_next_point);
 
         // 태그 값 가져오기
         Intent it = getIntent();
@@ -80,10 +102,10 @@ public class BuyActivity extends AppCompatActivity {
         FirebaseUser firebaseUser = mFirebaseAuth.getCurrentUser();
 
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-        if(firebaseUser == null){
+        if (firebaseUser == null) {
             Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
             startActivity(intent);
-        }else {
+        } else {
             DocumentReference docRef = db.collection("users").document(firebaseUser.getUid());
             docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                 @Override
@@ -99,30 +121,86 @@ public class BuyActivity extends AppCompatActivity {
                     }
                 }
             });
-        };
+        }
+        ;
 
         //nextPoint = String.valueOf(Integer.parseInt(curPoint) - Integer.parseInt(price));
 
-        tv_buy_info.setText(GoodsInfo);
-        tv_buy_price.setText(price);
+        //상품 정보 가져오기
+        reference.child("category").child(level1).child(level2).child(level3).child("goods").child(GoodsInfo).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DataSnapshot> task) {
+                if (!task.isSuccessful()) {
+                    Log.e("###", "에러발생 ", task.getException());
+                } else {
+                    GoodsData goodsData = task.getResult().getValue(GoodsData.class);
+                    goods_date = goodsData.date;
+                    goods_discount = goodsData.discount;
+                    goods_email = goodsData.email;
+                    goods_gifticon_uri = goodsData.gifticon_uri;
+                    goods_owner = goodsData.owner;
+                    goods_price = goodsData.price;
+                    goods_itemname = goodsData.itemname;
+
+                    tv_buy_info.setText(goods_itemname);
+                    tv_buy_price.setText(String.valueOf(goods_discount));
+
+                    Log.e("###", "성공!" + goods_owner);
+                }
+            }
+        });
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if(isPerchase)
+        {
+            Log.e("###", "해당 인텐트 종료! 업데이트할 것 : " + (sellerInfo.getPoint() + goods_price));
+            sellerInfo.setUserPoint(goods_owner, sellerInfo.getPoint() + goods_price);
+            buyerInfo.setUserPoint(buyerKey, buyerInfo.getPoint() - goods_price);
+
+            reference.child("category").child(level1).child(level2).child(level3).child("goods").child(GoodsInfo).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<DataSnapshot> task) {
+                    if (!task.isSuccessful()) {
+                        Log.e("###", "에러발생 ", task.getException());
+                    } else {
+                        GoodsData goodsData = task.getResult().getValue(GoodsData.class);
+                        goods_date = goodsData.date;
+                        goods_discount = goodsData.discount;
+                        goods_email = goodsData.email;
+                        goods_gifticon_uri = goodsData.gifticon_uri;
+                        goods_owner = goodsData.owner;
+                        goods_price = goodsData.price;
+                        goods_itemname = goodsData.itemname;
+
+                        //보관함에 상품 저장하기
+                        goodsData.InsertGoodsToStorage(buyerKey);
+
+                        tv_buy_info.setText(goods_itemname);
+                        tv_buy_price.setText(String.valueOf(goods_discount));
+
+                        Log.e("###", "성공!" + goods_owner);
+                    }
+                }
+            });
+
+            reference.child("category").child(level1).child(level2).child(level3).child("goods").child(GoodsInfo).removeValue();
+        }
     }
 
     public void buy_goods(View v) {
-        reference.child("category").child(level1).child(level2).child(level3).child("goods").child(GoodsInfo).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                goods_date = (String) snapshot.child("date").getValue();
-                goods_discount = (int) snapshot.child("discount").getValue();
-                goods_email = (String) snapshot.child("email").getValue();
-                goods_gifticon_uri = (String) snapshot.child("gifticon_uri").getValue();
-                goods_owner = (String) snapshot.child("owner").getValue();
-                goods_price = (int) snapshot.child("price").getValue();
-            }
+        Log.e("###", "현재 상품 정보 : " + GoodsInfo);
+        isPerchase = true;
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
+        sellerInfo = new UserInfo(goods_owner);
+        buyerInfo = new UserInfo(buyerKey);
 
-            }
-        });
+        mFirebaseAuth = FirebaseAuth.getInstance();
+        FirebaseUser firebaseUser = mFirebaseAuth.getCurrentUser();
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+        finish();
     }
 }

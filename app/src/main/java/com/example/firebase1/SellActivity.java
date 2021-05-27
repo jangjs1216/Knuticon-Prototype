@@ -103,6 +103,7 @@ public class SellActivity extends AppCompatActivity {
         GoodsData goodsData = new GoodsData(
                 Integer.parseInt(name),
                 Integer.parseInt(price),
+                level3,
                 dateFormat.format(new Date()),
                 user.getEmail(),
                 user.getUid(),
