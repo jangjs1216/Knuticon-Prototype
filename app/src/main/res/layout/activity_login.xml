@@ -21,21 +21,27 @@
         android:id="@+id/et_email"
         android:text="jongha@naver.com"
         android:hint="input email"
-        android:background="#ffffff"
+        android:padding="2sp"
+        android:background="#C51F25"
         android:inputType="textEmailAddress"
         android:layout_gravity="center"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/hanba"
+        android:textColor="#ffffff"
         android:layout_marginBottom="20sp"/>
 
     <EditText
         android:id="@+id/et_pwd"
         android:hint="input pwd"
         android:text="good1234"
-        android:background="#ffffff"
+        android:padding="2sp"
+        android:background="#C51F25"
         android:inputType="textPassword"
         android:layout_gravity="center"
         android:layout_width="300dp"
+        android:fontFamily="@font/hanba"
+        android:textColor="#ffffff"
         android:layout_height="wrap_content" />
 
     <LinearLayout
@@ -52,6 +58,7 @@
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:background="@drawable/button_loginbar"
+            android:fontFamily="@font/hanba"
             android:text="로그인"/>
 
         <Button
@@ -65,6 +72,7 @@
             android:layout_weight="1"
             android:background="@drawable/button_loginbar"
             android:textColor="#ffffff"
+            android:fontFamily="@font/hanba"
             android:text="회원 가입"/>
 
     </LinearLayout>

@@ -66,6 +66,9 @@ public class BuyActivity extends AppCompatActivity {
     //구매자 Key
     String buyerKey;
 
+    //데이터 변환
+    NameChanger nameChanger = new NameChanger();
+
     Boolean isPerchase = false;
 
     @Override
@@ -114,9 +117,9 @@ public class BuyActivity extends AppCompatActivity {
                         DocumentSnapshot document = task.getResult();
                         if (document != null && document.exists()) {
                             curPoint = document.get("point").toString();
-                            tv_cur_point.setText(curPoint);
+                            tv_cur_point.setText(curPoint+"P");
                             nextPoint = String.valueOf(Integer.parseInt(curPoint) - Integer.parseInt(price));
-                            tv_next_point.setText(nextPoint);
+                            tv_next_point.setText(nextPoint+"P");
                         }
                     }
                 }
@@ -142,8 +145,8 @@ public class BuyActivity extends AppCompatActivity {
                     goods_price = goodsData.price;
                     goods_itemname = goodsData.itemname;
 
-                    tv_buy_info.setText(goods_itemname);
-                    tv_buy_price.setText(String.valueOf(goods_discount));
+                    tv_buy_info.setText(nameChanger.getChangedName(goods_itemname));
+                    tv_buy_price.setText(String.valueOf(goods_discount)+"P");
 
                     Log.e("###", "성공!" + goods_owner);
                 }
@@ -156,9 +159,9 @@ public class BuyActivity extends AppCompatActivity {
         super.onDestroy();
         if(isPerchase)
         {
-            Log.e("###", "해당 인텐트 종료! 업데이트할 것 : " + (sellerInfo.getPoint() + goods_price));
-            sellerInfo.setUserPoint(goods_owner, sellerInfo.getPoint() + goods_price);
-            buyerInfo.setUserPoint(buyerKey, buyerInfo.getPoint() - goods_price);
+            Log.e("###", "해당 인텐트 종료! 업데이트할 것 : " + (sellerInfo.getPoint() + goods_discount));
+            sellerInfo.setUserPoint(goods_owner, sellerInfo.getPoint() + goods_discount);
+            buyerInfo.setUserPoint(buyerKey, buyerInfo.getPoint() - goods_discount);
 
             reference.child("category").child(level1).child(level2).child(level3).child("goods").child(GoodsInfo).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
                 @Override
@@ -178,7 +181,7 @@ public class BuyActivity extends AppCompatActivity {
                         //보관함에 상품 저장하기
                         goodsData.InsertGoodsToStorage(buyerKey);
 
-                        tv_buy_info.setText(goods_itemname);
+                        tv_buy_info.setText(nameChanger.getChangedName(goods_itemname));
                         tv_buy_price.setText(String.valueOf(goods_discount));
 
                         Log.e("###", "성공!" + goods_owner);
@@ -187,20 +190,32 @@ public class BuyActivity extends AppCompatActivity {
             });
 
             reference.child("category").child(level1).child(level2).child(level3).child("goods").child(GoodsInfo).removeValue();
+
+            Intent it = new Intent(getApplicationContext(), StorageItemActivity.class);
+            it.putExtra("gifticon_uri", goods_gifticon_uri);
+            it.putExtra("date", goods_date);
+            startActivity(it);
+
+            Toast.makeText(getApplicationContext(), "상품이 보관함으로 이동되었어요!", Toast.LENGTH_LONG).show();
         }
     }
 
     public void buy_goods(View v) {
-        Log.e("###", "현재 상품 정보 : " + GoodsInfo);
-        isPerchase = true;
+        if(Integer.parseInt(nextPoint) < 0)
+        {
+            Toast.makeText(getApplicationContext(), "포인트가 모자랍니다!", Toast.LENGTH_LONG).show();
+        }else{
+            Log.e("###", "현재 상품 정보 : " + GoodsInfo);
+            isPerchase = true;
 
-        sellerInfo = new UserInfo(goods_owner);
-        buyerInfo = new UserInfo(buyerKey);
+            sellerInfo = new UserInfo(goods_owner);
+            buyerInfo = new UserInfo(buyerKey);
 
-        mFirebaseAuth = FirebaseAuth.getInstance();
-        FirebaseUser firebaseUser = mFirebaseAuth.getCurrentUser();
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
+            mFirebaseAuth = FirebaseAuth.getInstance();
+            FirebaseUser firebaseUser = mFirebaseAuth.getCurrentUser();
+            FirebaseFirestore db = FirebaseFirestore.getInstance();
 
-        finish();
+            finish();
+        }
     }
 }

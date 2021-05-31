@@ -4,6 +4,7 @@
     android:padding="10dp"
     android:orientation="horizontal"
     android:layout_width="match_parent"
+    android:background="#EAEAEA"
     android:layout_height="wrap_content">
 
     <TextView
@@ -11,6 +12,11 @@
         android:layout_width="match_parent"
         android:layout_height="50sp"
         android:textSize="20sp"
+        android:layout_marginLeft="10sp"
+        android:layout_marginRight="20sp"
+        android:fontFamily="@font/hanba"
+        android:textColor="@color/black"
         android:text="상품명"/>
+
 
 </LinearLayout>

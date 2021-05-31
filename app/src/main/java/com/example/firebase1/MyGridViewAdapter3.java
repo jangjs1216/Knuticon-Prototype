@@ -16,6 +16,9 @@ public class MyGridViewAdapter3 extends BaseAdapter {
     ArrayList<GoodsData> items;
     Context context;
 
+    //Database id -> 상품명 전환
+    NameChanger nameChanger = new NameChanger();
+
     public MyGridViewAdapter3(ArrayList<GoodsData> items, Context context){
         this.items = items;
         this.context = context;
@@ -43,7 +46,7 @@ public class MyGridViewAdapter3 extends BaseAdapter {
 
         //item_goods에 할인가 정보 삽입
         TextView tv_discount = view.findViewById(R.id.tv_discount);
-        tv_discount.setText(String.valueOf(items.get(i).discount));
+        tv_discount.setText(String.valueOf(items.get(i).discount)+"P");
 
         //날짜 가져오기
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd");
@@ -53,7 +56,7 @@ public class MyGridViewAdapter3 extends BaseAdapter {
 
         //할인율 구하기
         double percent = (double)(1.0-(double)items.get(i).discount/items.get(i).price)*100.0;
-        tv_price.setText("-"+String.format("%.0f",percent)+"%");
+        tv_price.setText("(-"+String.format("%.0f",percent)+"%)");
 
         //item_goods에 유통기한 정보 삽입
         TextView tv_date = view.findViewById(R.id.tv_date);

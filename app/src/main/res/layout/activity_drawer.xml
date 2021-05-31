@@ -20,6 +20,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20sp"
         android:layout_marginLeft="20sp"
+        android:fontFamily="@font/hanba"
         android:textSize="25sp"
         android:textColor="@color/black"
         android:gravity="left"
@@ -36,6 +37,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="5sp"
             android:layout_marginLeft="20sp"
+            android:fontFamily="@font/hanba"
             android:textSize="25sp"
             android:textColor="@color/black"
             android:gravity="left"
@@ -45,6 +47,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="5sp"
+            android:fontFamily="@font/hanba"
             android:textSize="25sp"
             android:textColor="@color/black"
             android:gravity="left"
@@ -66,6 +69,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20sp"
         android:layout_marginLeft="20sp"
+        android:fontFamily="@font/hanba"
         android:textSize="25sp"
         android:textColor="@color/black"
         android:gravity="left"
@@ -77,6 +81,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="3sp"
         android:layout_marginLeft="20sp"
+        android:fontFamily="@font/hanba"
         android:textSize="25sp"
         android:textColor="#ff0000"
         android:gravity="left"
@@ -95,15 +100,23 @@
     <Button
         android:id="@+id/btn_storage"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="40sp"
         android:layout_margin="10dp"
+        android:background="@drawable/button_drawal"
+        android:textColor="@color/white"
+        android:fontFamily="@font/hanba"
+        android:textSize="15sp"
         android:text="보관함"/>
 
     <Button
         android:id="@+id/btn_logout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="40sp"
         android:layout_margin="10dp"
+        android:background="@drawable/button_drawal"
+        android:textColor="@color/white"
+        android:fontFamily="@font/hanba"
+        android:textSize="15sp"
         android:text="로그아웃"/>
 
 </LinearLayout>

@@ -13,7 +13,10 @@
         android:id="@+id/tv_categoryname"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="20dp"
+        android:layout_marginTop="20sp"
+        android:fontFamily="@font/hanba"
+        android:textColor="@color/black"
+        android:textSize="25sp"
         android:text="카테고리"
         />
 
@@ -21,9 +24,10 @@
         android:id="@+id/gv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:verticalSpacing="10dip"
+        android:verticalSpacing="20dip"
         android:horizontalSpacing="10dip"
-        android:layout_margin="10dp"
+        android:layout_margin="20dp"
+        android:layout_gravity="center"
         android:numColumns="3" />
 
 </LinearLayout>

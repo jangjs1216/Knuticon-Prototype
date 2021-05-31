@@ -18,6 +18,9 @@ public class MyGridViewAdapter2 extends BaseAdapter {
         this.context = context;
     }
 
+    //Database id -> 상품명 전환
+    NameChanger nameChanger = new NameChanger();
+
     @Override
     public int getCount() {
         return items.size();
@@ -39,7 +42,7 @@ public class MyGridViewAdapter2 extends BaseAdapter {
         view = inflater.inflate(R.layout.item_items, viewGroup, false);
 
         TextView tv_name = view.findViewById(R.id.textView_goods);
-        tv_name.setText(items.get(i));
+        tv_name.setText(nameChanger.getChangedName(items.get(i)));
 
         return view;
     }

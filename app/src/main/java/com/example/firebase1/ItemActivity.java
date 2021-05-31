@@ -40,6 +40,9 @@ public class ItemActivity extends AppCompatActivity {
     //Metadata
     String level1, level2;
 
+    //Database id -> 상품명 전환
+    NameChanger nameChanger = new NameChanger();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,7 +58,7 @@ public class ItemActivity extends AppCompatActivity {
 
         // 텍스트뷰에 카테고리 적용
         TextView tv_categoryname = (TextView)findViewById(R.id.tv_Itemname);
-        tv_categoryname.setText(category);
+        tv_categoryname.setText(nameChanger.getChangedName(category));
 
         // GridView에 정보 삽입
         getInfo();
@@ -73,7 +76,7 @@ public class ItemActivity extends AppCompatActivity {
                 items.clear();
                 for (final DataSnapshot data : snapshot.getChildren()) {
                     String cafeName = data.getKey();
-                    items.add(new String(cafeName));
+                    items.add(cafeName);
                 }
 
                 adapter = new MyGridViewAdapter2(items, getApplicationContext());

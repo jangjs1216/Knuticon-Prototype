@@ -3,32 +3,38 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:padding="10dp"
     android:orientation="horizontal"
+    android:background="#F4F4F4"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
     <TextView
         android:id="@+id/tv_discount"
-        android:layout_width="150sp"
+        android:layout_width="50sp"
         android:layout_height="50sp"
         android:layout_weight="1"
+        android:fontFamily="@font/hanba"
+        android:textColor="@color/black"
         android:textSize="20sp"
         android:text="할인가"/>
 
     <TextView
         android:id="@+id/tv_price"
-        android:layout_width="100sp"
+        android:layout_width="80sp"
         android:layout_height="50sp"
         android:layout_weight="2"
-        android:textSize="10sp"
+        android:fontFamily="@font/hanba"
+        android:textSize="20sp"
         android:textColor="#ff0000"
         android:text="할인율"/>
 
     <TextView
         android:id="@+id/tv_date"
-        android:layout_width="0dp"
+        android:layout_width="20dp"
         android:layout_height="50sp"
         android:layout_weight="3"
-        android:textSize="10sp"
+        android:fontFamily="@font/hanba"
+        android:textColor="@color/black"
+        android:textSize="16sp"
         android:text="유통기한"/>
 
 </LinearLayout>

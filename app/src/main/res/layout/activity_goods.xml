@@ -13,7 +13,10 @@
         android:id="@+id/tv_goods"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="20dp"
+        android:layout_marginTop="20sp"
+        android:fontFamily="@font/hanba"
+        android:textColor="@color/black"
+        android:textSize="25dp"
         android:text="아이템"
         />
 
@@ -34,6 +37,10 @@
         android:layout_marginRight="25sp"
         android:layout_marginBottom="25sp"
         android:text="판매하기"
+        android:textColor="@color/white"
+        android:fontFamily="@font/hanba"
+        android:textSize="15sp"
+        android:background="@drawable/button_category"
         android:onClick="sell_goods"
         />
 

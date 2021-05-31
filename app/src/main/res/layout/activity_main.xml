@@ -89,8 +89,8 @@
                 android:gravity="center"
                 android:background="@drawable/button_category"
                 android:textColor="@color/white"
-                android:fontFamily="@font/bmhan"
-                android:textSize="25sp"
+                android:fontFamily="@font/hanba"
+                android:textSize="20sp"
                 android:layout_alignParentTop="true"
                 android:layout_alignParentLeft="true"
                 android:layout_marginLeft="20dp"
@@ -107,8 +107,8 @@
                 android:gravity="center"
                 android:background="@drawable/button_category"
                 android:textColor="@color/white"
-                android:fontFamily="@font/bmhan"
-                android:textSize="25sp"
+                android:fontFamily="@font/hanba"
+                android:textSize="20sp"
                 android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true"
                 android:clickable="true"
@@ -124,8 +124,8 @@
                 android:gravity="center"
                 android:background="@drawable/button_category"
                 android:textColor="@color/white"
-                android:fontFamily="@font/bmhan"
-                android:textSize="20sp"
+                android:fontFamily="@font/hanba"
+                android:textSize="15sp"
                 android:layout_alignParentTop="true"
                 android:layout_alignParentRight="true"
                 android:layout_marginRight="20dp"
@@ -142,8 +142,8 @@
                 android:gravity="center"
                 android:background="@drawable/button_category"
                 android:textColor="@color/white"
-                android:fontFamily="@font/bmhan"
-                android:textSize="25sp"
+                android:fontFamily="@font/hanba"
+                android:textSize="20sp"
                 android:layout_marginLeft="20dp"
                 android:layout_centerVertical="true"
                 android:clickable="true"
@@ -159,8 +159,8 @@
                 android:gravity="center"
                 android:background="@drawable/button_category"
                 android:textColor="@color/white"
-                android:fontFamily="@font/bmhan"
-                android:textSize="20sp"
+                android:fontFamily="@font/hanba"
+                android:textSize="15sp"
                 android:layout_marginLeft="20dp"
                 android:layout_centerVertical="true"
                 android:layout_centerHorizontal="true"
@@ -177,8 +177,8 @@
                 android:gravity="center"
                 android:background="@drawable/button_category"
                 android:textColor="@color/white"
-                android:fontFamily="@font/bmhan"
-                android:textSize="20sp"
+                android:fontFamily="@font/hanba"
+                android:textSize="15sp"
                 android:layout_marginRight ="20dp"
                 android:layout_centerVertical="true"
                 android:layout_alignParentRight="true"
@@ -188,12 +188,12 @@
 
         </RelativeLayout>
 
-<!--        <ImageView-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:src="@mipmap/ic_launcher"-->
-<!--            android:id="@+id/iv_starbucks"-->
-<!--            android:visibility="visible"/>-->
+        <ImageView
+            android:layout_width="300sp"
+            android:layout_height="200sp"
+            android:src="@drawable/main_banner"
+            android:layout_marginTop="50sp"
+            android:layout_gravity="center"/>
     </LinearLayout>
     <include layout="@layout/activity_drawer"/>
 </androidx.drawerlayout.widget.DrawerLayout>

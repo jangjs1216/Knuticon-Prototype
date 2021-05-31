@@ -61,6 +61,9 @@ public class GoodsActivity extends AppCompatActivity {
     //가격
     String price="0";
 
+    //네임체인저
+    NameChanger nameChanger = new NameChanger();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -79,7 +82,7 @@ public class GoodsActivity extends AppCompatActivity {
         // 텍스트뷰에 카테고리 적용
         LinearLayout linearLayout = (LinearLayout)findViewById(R.id.ll_category);
         TextView tv_goods = (TextView)findViewById(R.id.tv_goods);
-        tv_goods.setText(category);
+        tv_goods.setText(nameChanger.getChangedName(category));
 
         // GridView에 정보 삽입
         getInfo();

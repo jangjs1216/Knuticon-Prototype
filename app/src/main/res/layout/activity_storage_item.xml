@@ -19,6 +19,6 @@
             android:layout_width="match_parent"
             android:layout_height="50sp"
             android:layout_gravity="bottom"
-            android:text="사용완료"/>
+            android:text="확인"/>
 
 </LinearLayout>

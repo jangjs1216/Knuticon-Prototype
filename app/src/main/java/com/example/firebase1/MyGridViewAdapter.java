@@ -16,6 +16,9 @@ public class MyGridViewAdapter extends BaseAdapter {
     ArrayList<String> items;
     Context context;
 
+    //Database id -> 상품명 전환
+    NameChanger nameChanger = new NameChanger();
+
     public MyGridViewAdapter(ArrayList<String> items, Context context){
         this.items = items;
         this.context = context;
@@ -42,7 +45,7 @@ public class MyGridViewAdapter extends BaseAdapter {
         view = inflater.inflate(R.layout.item_category, viewGroup, false);
 
         TextView tv_name = view.findViewById(R.id.tv_categoryname);
-        tv_name.setText(items.get(i));
+        tv_name.setText(nameChanger.getChangedName(items.get(i)));
 
         return view;
     }
