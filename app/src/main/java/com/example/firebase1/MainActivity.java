@@ -76,16 +76,17 @@ public class MainActivity extends AppCompatActivity {
         mFirebaseAuth = FirebaseAuth.getInstance();
         FirebaseUser firebaseUser = mFirebaseAuth.getCurrentUser();
 
-        if(firebaseUser == null)
-            Toast.makeText(MainActivity.this, "데이터베이스 연결에 실패하였습니다.", Toast.LENGTH_SHORT).show();
-        else
-            Toast.makeText(MainActivity.this, "데이터베이스 연결에 성공하였습니다.", Toast.LENGTH_SHORT).show();
+//        if(firebaseUser == null)
+//            Toast.makeText(MainActivity.this, "데이터베이스 연결에 실패하였습니다. - 1", Toast.LENGTH_SHORT).show();
+//        else
+//            Toast.makeText(MainActivity.this, "데이터베이스 연결에 성공하였습니다. - 1", Toast.LENGTH_SHORT).show();
 
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         if(firebaseUser == null){
             Intent intent = new Intent(MainActivity.this, LoginActivity.class);
             startActivity(intent);
         }else {
+            Toast.makeText(MainActivity.this, firebaseUser.getUid(), Toast.LENGTH_SHORT).show();
             DocumentReference docRef = db.collection("users").document(firebaseUser.getUid());
             docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                 @Override
@@ -99,12 +100,12 @@ public class MainActivity extends AppCompatActivity {
                             user_data.setText(document.get("point").toString()+"P");
                             tv_username.setText(userName.substring(0, userName.length()-10));
 
-                            Toast.makeText(MainActivity.this, "데이터베이스 다운로드에 성공하였습니다.", Toast.LENGTH_SHORT).show();
+//                            Toast.makeText(MainActivity.this, "데이터베이스 다운로드에 성공하였습니다. - 2", Toast.LENGTH_SHORT).show();
                         } else {
-                            Toast.makeText(MainActivity.this, "데이터베이스 다운로드에 실패하였습니다.", Toast.LENGTH_SHORT).show();
+//                            Toast.makeText(MainActivity.this, "데이터베이스 다운로드에 실패하였습니다. - 2", Toast.LENGTH_SHORT).show();
                         }
                     } else {
-                        Toast.makeText(MainActivity.this, "데이터베이스 연결에 실패하였습니다.", Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(MainActivity.this, "데이터베이스 연결에 실패하였습니다. - 2", Toast.LENGTH_SHORT).show();
                     }
                 }
             });

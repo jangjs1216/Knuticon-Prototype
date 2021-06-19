@@ -10,6 +10,7 @@
     <TextView
         android:id="@+id/textView_goods"
         android:layout_width="match_parent"
+        android:gravity="center_vertical"
         android:layout_height="50sp"
         android:textSize="20sp"
         android:layout_marginLeft="10sp"
