@@ -19,6 +19,7 @@ public class GoodsData {
     public String date;
     public String email;
     public String owner;
+    public String owner2;
     public String gifticon_uri;
     public String desc;
 
@@ -29,23 +30,33 @@ public class GoodsData {
         date = new String();
         email = new String();
         owner = new String();
+        owner2 = new String();
         gifticon_uri = new String();
         desc = new String();
     }
 
-    public GoodsData(int discount, int price, String itemname, String date, String email, String owner, String gifticon_uri, String desc){
+    public GoodsData(int discount, int price, String itemname, String date, String email, String owner, String owner2, String gifticon_uri, String desc){
         this.discount = discount;
         this.price = price;
         this.itemname = itemname;
         this.date = date;
         this.email = email;
         this.owner = owner;
+        this.owner2 = owner2;
         this.gifticon_uri = gifticon_uri;
         this.desc = desc;
     }
 
     public String getOwner() {
         return owner;
+    }
+
+    public void setOwner2(String owner2) {
+        this.owner2 = owner2;
+    }
+
+    public String getOwner2() {
+        return owner2;
     }
 
     public void setOwner(String owner) {
@@ -108,11 +119,13 @@ public class GoodsData {
         this.desc = desc;
     }
 
+
+
     public void InsertGoodsToStorage(String newOwner)
     {
         DatabaseReference addDatabase = FirebaseDatabase.getInstance().getReference("storage");
 
-        this.owner = newOwner;
+        this.owner2 = newOwner;
 
         String key = addDatabase.push().getKey();
         addDatabase.child(gifticon_uri).setValue(this).addOnCompleteListener(new OnCompleteListener<Void>() {

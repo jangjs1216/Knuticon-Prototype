@@ -126,6 +126,7 @@ public class SellActivity extends AppCompatActivity {
                     tv_date_view.getText().toString(),
                     user.getEmail(),
                     user.getUid(),
+                    user.getUid(),
                     key,
                     tv_sell_desc.getText().toString()
             );

@@ -51,7 +51,11 @@ public class StorageActivity extends AppCompatActivity {
                 items.clear();
                 for (final DataSnapshot data : snapshot.getChildren()) {
                     GoodsData gds = data.getValue(GoodsData.class);
-                    items.add(gds);
+
+                    if(gds.owner.equals(user.getUid()) || gds.owner2.equals(user.getUid()))
+                    {
+                        items.add(gds);
+                    }
                 }
 
                 adapter = new MyGridViewAdapter4(items, getApplicationContext());
