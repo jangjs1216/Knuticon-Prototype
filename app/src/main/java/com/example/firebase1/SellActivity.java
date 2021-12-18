@@ -57,6 +57,10 @@ public class SellActivity extends AppCompatActivity {
 
     TextView tv_sell_price;
     EditText tv_sell_discount;
+
+    // 12.18 추가
+    EditText tv_sell_name, tv_sell_desc;
+
     ImageView imageView;
 
     //ImageView 가져오기용
@@ -88,6 +92,8 @@ public class SellActivity extends AppCompatActivity {
         //텍스트 정보 가져오기
         tv_sell_discount = (EditText)findViewById(R.id.tv_sell_discount);
         tv_sell_price = (TextView)findViewById(R.id.tv_sell_price);
+        tv_sell_name = (EditText)findViewById(R.id.tv_sell_name);
+        tv_sell_desc = (EditText)findViewById(R.id.tv_sell_desc);
 
         //정가 가져오기
         tv_sell_price.setText(price);
@@ -114,13 +120,14 @@ public class SellActivity extends AppCompatActivity {
 
             //GoodsData 객체 생성
             GoodsData goodsData = new GoodsData(
-                    Integer.parseInt(name),
-                    Integer.parseInt(price),
-                    level3,
+                    Integer.parseInt(tv_sell_discount.getText().toString()),
+                    Integer.parseInt(tv_sell_price.getText().toString()),
+                    tv_sell_name.getText().toString(),
                     tv_date_view.getText().toString(),
                     user.getEmail(),
                     user.getUid(),
-                    key
+                    key,
+                    tv_sell_desc.getText().toString()
             );
 
             Log.e("###", "유통기한 정보 : "+tv_date_view.getText().toString());

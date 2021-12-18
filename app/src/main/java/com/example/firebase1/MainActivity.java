@@ -42,6 +42,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
@@ -109,6 +110,8 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
             });
+
+
         }
 
         Button btn_logout = findViewById(R.id.btn_logout);
@@ -274,18 +277,6 @@ public class MainActivity extends AppCompatActivity {
         //현재 키를 발급
         String MyKey = user.getUid();
         String RandomKey = addDatabase.push().getKey();
-
-        GoodsData goodsData = new GoodsData(
-                500,
-                1000,
-                "a",
-                "21.01.01",
-                user.getEmail(),
-                user.getUid(),
-                "starbucks.jpg"
-        );
-
-        addDatabase.child(RandomKey).setValue(goodsData);
     }
 
     public void compare_key(View v){

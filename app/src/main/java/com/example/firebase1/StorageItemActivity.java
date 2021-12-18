@@ -8,8 +8,13 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
@@ -17,21 +22,35 @@ import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+
+import java.util.ArrayList;
 
 public class StorageItemActivity extends AppCompatActivity {
     //데이터베이스 연동
     FirebaseDatabase database =FirebaseDatabase.getInstance();
     DatabaseReference reference = database.getReference();
     private FirebaseAuth mFirebaseAuth;
+    private DatabaseReference addDatabase;
 
     String gifticon_uri;
     String date;
 
     Button btn_over;
+    Button btn_sendMsg;
+
+    EditText et_myMsg;
+
+    //GridView Adapter
+    GridView gv;
+    ChattingAdapter adapter;
+    ArrayList<ChattingData> items = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,40 +61,66 @@ public class StorageItemActivity extends AppCompatActivity {
         gifticon_uri = it.getStringExtra("gifticon_uri");
         date = it.getStringExtra("date");
 
-        //ImageView 아이디 가져오기
-        ImageView iv_storage_gifticon = (ImageView)findViewById(R.id.iv_storage_gifticon);
+        et_myMsg = findViewById(R.id.et_myMsg);
+        btn_sendMsg = findViewById(R.id.btn_sendMsg);
 
-        GetDatabase getDatabase = new GetDatabase();
+        gv = findViewById(R.id.gv_chatting);
 
-        FirebaseStorage storage = FirebaseStorage.getInstance();
-        StorageReference spaceRef = storage.getReference(gifticon_uri+".jpg");
-        spaceRef.getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
+        btn_sendMsg.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onComplete(@NonNull Task<Uri> task) {
-                if (task.isSuccessful()) {
-                    // Glide 이용하여 이미지뷰에 로딩
-                    Glide.with(getApplicationContext())
-                            .load(task.getResult())
-                            .override(1024, 980)
-                            .into(iv_storage_gifticon);
-                } else {
-                    // URL을 가져오지 못하면 토스트 메세지
-                    Toast.makeText(getApplicationContext(), task.getException().getMessage(), Toast.LENGTH_SHORT).show();
-                }
+            public void onClick(View v) {
+                ChattingData chattingData = new ChattingData(
+                        et_myMsg.getText().toString(),
+                        "temp"
+                );
+
+                reference.child("storage").child(gifticon_uri).child("chatting").push().setValue(chattingData).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if(task.isSuccessful()){
+                            //삽입이 완료되면 할 행동
+                        }
+                    }
+                });
             }
         });
-        Log.d("###", spaceRef.toString());
-        Glide.with(this)
-                .load(spaceRef)
-                .centerCrop()
-                .transition(DrawableTransitionOptions.withCrossFade())
-                .into(iv_storage_gifticon);
 
         btn_over = (Button)findViewById(R.id.btn_over);
         btn_over.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                finish();
+            }
+        });
+
+        //GridView에 정보 삽입
+        getInfo();
+    }
+
+    public void getInfo(){
+
+
+        reference.child("storage").child(gifticon_uri).child("chatting").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                items.clear();
+                for (final DataSnapshot data : snapshot.getChildren()) {
+                    ChattingData gds = data.getValue(ChattingData.class);
+                    items.add(gds);
+                }
+
+                adapter = new ChattingAdapter(items, getApplicationContext());
+                //데이터 업데이트 ( 중복 표시 방지 )
+                adapter.notifyDataSetChanged();
+
+                gv.scrollBy(items.size()-1, 0);
+
+                gv.setAdapter(adapter);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
             }
         });
     }

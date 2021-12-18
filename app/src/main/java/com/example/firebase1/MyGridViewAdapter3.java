@@ -44,15 +44,19 @@ public class MyGridViewAdapter3 extends BaseAdapter {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         view = inflater.inflate(R.layout.item_goods, viewGroup, false);
 
+        TextView tv_goods_name = view.findViewById(R.id.tv_goods_name);
+        tv_goods_name.setText(items.get(i).itemname);
+
         //item_goods에 할인가 정보 삽입
-        TextView tv_discount = view.findViewById(R.id.tv_discount);
+        TextView tv_discount = view.findViewById(R.id.tv_goods_discount);
         tv_discount.setText(String.valueOf(items.get(i).discount)+"P");
 
         //날짜 가져오기
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd");
 
         //tv_goods에 정가 정보 삽입
-        TextView tv_price = view.findViewById(R.id.tv_price);
+        TextView tv_price = view.findViewById(R.id.tv_goods_price);
+        tv_price.setText(String.valueOf(items.get(i).price));
 
         //할인율 구하기
         double percent = (double)(1.0-(double)items.get(i).discount/items.get(i).price)*100.0;

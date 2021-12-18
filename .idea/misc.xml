@@ -1,5 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/Users/User/AndroidStudioProjects/Knuticon-Prototype/app/src/main/res/layout/activity_buy.xml" value="0.5465517241379311" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/Knuticon-Prototype/app/src/main/res/layout/activity_category.xml" value="0.5536458333333333" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/Knuticon-Prototype/app/src/main/res/layout/activity_date_picker.xml" value="0.5536458333333333" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/Knuticon-Prototype/app/src/main/res/layout/activity_drawer.xml" value="0.5536458333333333" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/Knuticon-Prototype/app/src/main/res/layout/activity_goods.xml" value="0.5536458333333333" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/Knuticon-Prototype/app/src/main/res/layout/activity_item.xml" value="0.5536458333333333" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/Knuticon-Prototype/app/src/main/res/layout/activity_login.xml" value="0.41032608695652173" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/Knuticon-Prototype/app/src/main/res/layout/activity_main.xml" value="0.5536458333333333" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/Knuticon-Prototype/app/src/main/res/layout/activity_sell.xml" value="0.33" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/Knuticon-Prototype/app/src/main/res/layout/activity_storage.xml" value="0.5536458333333333" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/Knuticon-Prototype/app/src/main/res/layout/activity_storage_item.xml" value="0.5536458333333333" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/Knuticon-Prototype/app/src/main/res/layout/item_category.xml" value="0.5536458333333333" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/Knuticon-Prototype/app/src/main/res/layout/item_chatting.xml" value="0.2692502532928065" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/Knuticon-Prototype/app/src/main/res/layout/item_goods.xml" value="0.5536458333333333" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/Knuticon-Prototype/app/src/main/res/layout/item_items.xml" value="0.5536458333333333" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/Knuticon-Prototype/app/src/main/res/layout/item_storage.xml" value="0.5536458333333333" />
+      </map>
+    </option>
+  </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>

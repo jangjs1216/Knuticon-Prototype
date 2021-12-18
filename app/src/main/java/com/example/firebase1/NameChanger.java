@@ -8,106 +8,40 @@ public class NameChanger {
 
     NameChanger()
     {
-        //Category - cafe
-        nameMap.put("angelinus", "엔젤리너스");
-        nameMap.put("ediya", "이디야");
-        nameMap.put("gongcha", "공차");
-        nameMap.put("hollys", "할리스커피");
+        //Category - clothes
+        nameMap.put("girlclothe", "여성패션");
+        nameMap.put("manclothe", "남성패션");
+        nameMap.put("clothe", "남녀 공용 의류");
+        nameMap.put("childclothe", "유아동패션");
 
-        //Starbucks
-        nameMap.put("starbucks", "스타벅스");
-        nameMap.put("samericanot", "스타벅스 카페아메리카노T 4100");
-        nameMap.put("scafelattet", "스타벅스 카페라떼T 4600");
-        nameMap.put("scafemochat", "스타벅스 카페모카T 5100");
-        nameMap.put("ssigchocot", "스타벅스 시그니처초콜릿T 5300");
-        nameMap.put("scaramelt", "스타벅스 카라멜마끼아또T 5600");
-        nameMap.put("sjavat", "스타벅스 자바칩프라푸치노T 6100");
-        nameMap.put("sfreeallt", "스타벅스 무료음료쿠폰T 7100");
+        //Category - foods
+        nameMap.put("food", "건강식품");
+        nameMap.put("fruit", "과일");
+        nameMap.put("vegetable", "채소");
+        nameMap.put("water", "생수/음료");
+        nameMap.put("snack", "과자");
+        nameMap.put("noodle", "면/통조림");
 
-        nameMap.put("twosome", "투썸플레이스");
-        nameMap.put("icedamericano", "아이스아메리카노");
+        //Category - digitals
+        nameMap.put("laptop", "노트북");
+        nameMap.put("desktop", "데스크탑");
+        nameMap.put("monitor", "모니터");
+        nameMap.put("smartphone", "스마트폰");
 
+        //Category - livings
+        nameMap.put("detergent", "세탁세제");
+        nameMap.put("clean", "수납/정리");
+        nameMap.put("health", "건강/의료용품");
 
-        //Category - convenient
-        //GS25
-        nameMap.put("gs25", "GS25");
-        nameMap.put("sgiftcard5000", "GS25상품권 5000원권");
+        //Category - books
+        nameMap.put("book", "도서");
+        nameMap.put("music", "음반");
+        nameMap.put("dvd", "DVD");
 
-        //CU
-        nameMap.put("cu", "CU");
-        nameMap.put("cgiftcard5000", "CU25상품권 5000원권");
-
-        //Ministop
-        nameMap.put("ministop", "미니스탑");
-        nameMap.put("mgiftcard5000", "미니스탑 상품권 5000원권");
-
-        //세븐일레븐
-        nameMap.put("seven", "세븐일레븐");
-        nameMap.put("sgiftcard5000", "세븐일레븐 상품권 5000원권");
-
-        //Category - fastfood
-        //롯데리아
-        nameMap.put("lotteria", "롯데리아");
-
-        //버거킹
-        nameMap.put("burgurking", "버거킹");
-
-        //맥도날드
-        nameMap.put("macs", "맥도날드");
-
-        //맘스터치
-        nameMap.put("moms", "맘스터치");
-
-        //도미노피자
-        nameMap.put("domino", "도미노피자");
-
-        //미스터피자
-        nameMap.put("mister", "미스터피자");
-
-        //BHC
-        nameMap.put("bhc", "BHC");
-
-        //BBQ
-        nameMap.put("bbq", "BBQ");
-
-        //KFC
-        nameMap.put("kfc", "KFC");
-
-        //Category - giftcard
-        //휴대폰 상품권
-        nameMap.put("phone", "데이터");
-
-        //올리브영
-        nameMap.put("olive", "올리브영");
-
-        //토니모리
-        nameMap.put("tonimoly", "토니모리");
-
-        //미샤
-        nameMap.put("missha", "미샤");
-
-        //랄라블라
-        nameMap.put("lalavla", "랄라블라");
-
-        //Category - movie
-        //CGV
-        nameMap.put("cgv", "CGV");
-
-        //메가박스
-        nameMap.put("mega", "메가박스");
-
-        //롯데시네마
-        nameMap.put("lottesine", "롯데시네마");
-
-        //Category - icecream
-        //배스킨라빈스
-        nameMap.put("baskin", "배스킨라빈스");
-
-        //하겐다즈
-        nameMap.put("hagen", "하겐다즈");
-
-        //나뚜루
-        nameMap.put("naturr", "나뚜루");
+        //Category - offices
+        nameMap.put("pencil", "문구류");
+        nameMap.put("card", "카드/엽서");
+        nameMap.put("album", "앨범");
     }
 
     public HashMap<String, String> getNameMap() {

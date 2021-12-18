@@ -64,8 +64,6 @@ public class StorageActivity extends AppCompatActivity {
                         count++;
                 }
 
-                Toast.makeText(getApplicationContext(), "현재 가지고있는 상품은 "+count+"개입니다", Toast.LENGTH_LONG).show();
-
                 gv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {

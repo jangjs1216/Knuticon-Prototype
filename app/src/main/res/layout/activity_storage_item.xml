@@ -7,18 +7,44 @@
     android:orientation="vertical"
     tools:context=".StorageItemActivity">
 
-        <ImageView
-            android:id="@+id/iv_storage_gifticon"
+        <GridView
+            android:id="@+id/gv_chatting"
             android:layout_width="match_parent"
             android:layout_height="600sp"
-            android:layout_gravity="center"
-            android:layout_marginBottom="50sp"/>
+            android:verticalSpacing="10dip"
+            android:horizontalSpacing="10dip"
+            android:layout_margin="10dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50sp">
+
+                <EditText
+                    android:id="@+id/et_myMsg"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="30"
+                    />
+
+                <Button
+                    android:id="@+id/btn_sendMsg"
+                    android:layout_width="30sp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/ic_baseline_play_arrow_24"
+                    android:backgroundTint="#ff0000"
+                    android:textColor="@color/white"
+                    />
+
+        </LinearLayout>
 
         <Button
             android:id="@+id/btn_over"
             android:layout_width="match_parent"
             android:layout_height="50sp"
             android:layout_gravity="bottom"
-            android:text="확인"/>
+            android:background="@drawable/button_drawal"
+            android:textColor="@color/white"
+            android:text="구매 확인하기"/>
 
 </LinearLayout>

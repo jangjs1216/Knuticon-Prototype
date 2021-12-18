@@ -106,7 +106,7 @@
         android:textColor="@color/white"
         android:fontFamily="@font/hanba"
         android:textSize="15sp"
-        android:text="보관함"/>
+        android:text="연락함"/>
 
     <Button
         android:id="@+id/btn_logout"

@@ -6,101 +6,137 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".BuyActivity">
-
-    <TextView
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="상품 구매하기"
-        android:textSize="30sp"
-        android:layout_marginTop="10sp"
-        android:fontFamily="@font/hanba"
-        android:textColor="@color/black"
-        android:gravity="center"/>
+        android:layout_height="wrap_content">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="20sp"
-        android:text="상품정보"
-        android:fontFamily="@font/hanba"
-        android:textColor="@color/black"
-        android:layout_marginLeft="20sp"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/tv_buy_info"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="24sp"
-        android:text="정보"
-        android:fontFamily="@font/hanba"
-        android:textColor="@color/black"
-        android:layout_marginLeft="20sp"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="상품 구매하기"
+                android:textSize="30sp"
+                android:layout_marginTop="10sp"
+                android:fontFamily="@font/hanba"
+                android:textColor="@color/black"
+                android:gravity="center"/>
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="20sp"
-        android:text="구매할 가격"
-        android:fontFamily="@font/hanba"
-        android:textColor="@color/black"
-        android:layout_marginLeft="20sp"/>
+            <ImageView
+                android:id="@+id/iv_buy_item"
+                android:layout_width="250sp"
+                android:layout_height="250sp"
+                android:layout_gravity="center"
+                android:layout_marginBottom="30sp"/>
 
-    <TextView
-        android:id="@+id/tv_buy_price"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="30sp"
-        android:text="가격"
-        android:fontFamily="@font/hanba"
-        android:textColor="@color/black"
-        android:layout_marginLeft="20sp"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:text="상품명"
+                android:fontFamily="@font/hanba"
+                android:textColor="@color/black"
+                android:layout_marginLeft="20sp"/>
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="20sp"
-        android:text="현재 포인트"
-        android:fontFamily="@font/hanba"
-        android:textColor="@color/black"
-        android:layout_marginLeft="20sp"/>
+            <TextView
+                android:id="@+id/tv_buy_info"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="24sp"
+                android:text="정보"
+                android:fontFamily="@font/hanba"
+                android:textColor="@color/black"
+                android:layout_marginLeft="20sp"/>
 
-    <TextView
-        android:id="@+id/tv_cur_point"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="40sp"
-        android:text="포인트"
-        android:fontFamily="@font/hanba"
-        android:textColor="#ff0000"
-        android:layout_marginLeft="20sp"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:text="상품설명"
+                android:fontFamily="@font/hanba"
+                android:textColor="@color/black"
+                android:layout_marginLeft="20sp"/>
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="20sp"
-        android:text="구매 후 포인트"
-        android:fontFamily="@font/hanba"
-        android:textColor="@color/black"
-        android:layout_marginLeft="20sp"/>
+            <TextView
+                android:id="@+id/tv_buy_desc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="24sp"
+                android:text="정보"
+                android:fontFamily="@font/hanba"
+                android:textColor="@color/black"
+                android:layout_marginLeft="20sp"
+                android:layout_marginRight="20sp"/>
 
-    <TextView
-        android:id="@+id/tv_next_point"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="40sp"
-        android:text="포인트"
-        android:fontFamily="@font/hanba"
-        android:textColor="#ff0000"
-        android:layout_marginLeft="20sp"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:text="구매할 가격"
+                android:fontFamily="@font/hanba"
+                android:textColor="@color/black"
+                android:layout_marginLeft="20sp"/>
 
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="구매하기"
-        android:clickable="true"
-        android:layout_marginTop="20sp"
-        android:background="@drawable/button_drawal"
-        android:textColor="@color/white"
-        android:onClick="buy_goods"/>
+            <TextView
+                android:id="@+id/tv_buy_price"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="30sp"
+                android:text="가격"
+                android:fontFamily="@font/hanba"
+                android:textColor="@color/black"
+                android:layout_marginLeft="20sp"/>
 
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:text="현재 포인트"
+                android:fontFamily="@font/hanba"
+                android:textColor="@color/black"
+                android:layout_marginLeft="20sp"/>
+
+            <TextView
+                android:id="@+id/tv_cur_point"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="40sp"
+                android:text="포인트"
+                android:fontFamily="@font/hanba"
+                android:textColor="#ff0000"
+                android:layout_marginLeft="20sp"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:text="구매 후 포인트"
+                android:fontFamily="@font/hanba"
+                android:textColor="@color/black"
+                android:layout_marginLeft="20sp"/>
+
+            <TextView
+                android:id="@+id/tv_next_point"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="40sp"
+                android:text="포인트"
+                android:fontFamily="@font/hanba"
+                android:textColor="#ff0000"
+                android:layout_marginLeft="20sp"/>
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="판매자와 연락하기"
+                android:clickable="true"
+                android:layout_marginTop="20sp"
+                android:background="@drawable/button_drawal"
+                android:textColor="@color/white"
+                android:onClick="buy_goods"/>
+        </LinearLayout>
+    </ScrollView>
 </LinearLayout>

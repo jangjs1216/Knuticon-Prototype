@@ -20,6 +20,7 @@ public class GoodsData {
     public String email;
     public String owner;
     public String gifticon_uri;
+    public String desc;
 
     public GoodsData() {
         discount = 0;
@@ -29,9 +30,10 @@ public class GoodsData {
         email = new String();
         owner = new String();
         gifticon_uri = new String();
+        desc = new String();
     }
 
-    public GoodsData(int discount, int price, String itemname, String date, String email, String owner, String gifticon_uri){
+    public GoodsData(int discount, int price, String itemname, String date, String email, String owner, String gifticon_uri, String desc){
         this.discount = discount;
         this.price = price;
         this.itemname = itemname;
@@ -39,6 +41,7 @@ public class GoodsData {
         this.email = email;
         this.owner = owner;
         this.gifticon_uri = gifticon_uri;
+        this.desc = desc;
     }
 
     public String getOwner() {
@@ -97,6 +100,14 @@ public class GoodsData {
         this.itemname = itemname;
     }
 
+    public String getDesc() {
+        return desc;
+    }
+
+    public void setDesc(String desc) {
+        this.desc = desc;
+    }
+
     public void InsertGoodsToStorage(String newOwner)
     {
         DatabaseReference addDatabase = FirebaseDatabase.getInstance().getReference("storage");
@@ -104,7 +115,7 @@ public class GoodsData {
         this.owner = newOwner;
 
         String key = addDatabase.push().getKey();
-        addDatabase.child(key).setValue(this).addOnCompleteListener(new OnCompleteListener<Void>() {
+        addDatabase.child(gifticon_uri).setValue(this).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if(task.isSuccessful()){

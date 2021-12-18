@@ -84,10 +84,11 @@ public class CategoryActivity extends AppCompatActivity {
                         String item_name = (String) adapter.getItem(position).toString();
                         Toast.makeText(getApplicationContext(), item_name+"이 아이템이 선택되었습니다", Toast.LENGTH_SHORT).show();
 
-                        Intent it = new Intent(getApplicationContext(), ItemActivity.class);
+                        Intent it = new Intent(getApplicationContext(), GoodsActivity.class);
                         it.putExtra("it_item", item_name);
                         it.putExtra("level1", level1);
                         it.putExtra("level2", item_name);
+                        it.putExtra("level3", item_name);
                         startActivity(it);
                     }
                 });

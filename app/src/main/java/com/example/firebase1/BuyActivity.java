@@ -4,14 +4,18 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -26,6 +30,8 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 
@@ -36,11 +42,14 @@ public class BuyActivity extends AppCompatActivity {
     DatabaseReference reference = database.getReference();
     private FirebaseAuth mFirebaseAuth;
 
+    ImageView iv_buy_item;
+
     //TextView 가져오기
     TextView tv_buy_info;
     TextView tv_buy_price;
     TextView tv_cur_point;
     TextView tv_next_point;
+    TextView tv_buy_desc;
 
     String level1, level2, level3, price, GoodsInfo;
 
@@ -88,6 +97,9 @@ public class BuyActivity extends AppCompatActivity {
         tv_buy_price = (TextView) findViewById(R.id.tv_buy_price);
         tv_cur_point = (TextView) findViewById(R.id.tv_cur_point);
         tv_next_point = (TextView) findViewById(R.id.tv_next_point);
+        tv_buy_desc = findViewById(R.id.tv_buy_desc);
+
+        iv_buy_item = findViewById(R.id.iv_buy_item);
 
         // 태그 값 가져오기
         Intent it = getIntent();
@@ -147,6 +159,31 @@ public class BuyActivity extends AppCompatActivity {
 
                     tv_buy_info.setText(nameChanger.getChangedName(goods_itemname));
                     tv_buy_price.setText(String.valueOf(goods_discount)+"P");
+                    tv_buy_desc.setText(goodsData.desc);
+
+                    FirebaseStorage storage = FirebaseStorage.getInstance();
+                    StorageReference spaceRef = storage.getReference(goods_gifticon_uri+".jpg");
+                    spaceRef.getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Uri> task) {
+                            if (task.isSuccessful()) {
+                                // Glide 이용하여 이미지뷰에 로딩
+                                Glide.with(getApplicationContext())
+                                        .load(task.getResult())
+                                        .override(1024, 980)
+                                        .into(iv_buy_item);
+                            } else {
+                                // URL을 가져오지 못하면 토스트 메세지
+                                Toast.makeText(getApplicationContext(), task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    });
+                    Log.d("###", spaceRef.toString());
+                    Glide.with(getApplicationContext())
+                            .load(spaceRef)
+                            .centerCrop()
+                            .transition(DrawableTransitionOptions.withCrossFade())
+                            .into(iv_buy_item);
 
                     Log.e("###", "성공!" + goods_owner);
                 }

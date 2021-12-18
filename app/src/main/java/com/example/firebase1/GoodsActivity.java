@@ -74,7 +74,8 @@ public class GoodsActivity extends AppCompatActivity {
 
         // 태그 값 가져오기
         Intent it = getIntent();
-        String category = it.getStringExtra("it_goods");
+        String category = it.getStringExtra("it_item");
+        name = it.getStringExtra("it_goods");
         level1 = it.getStringExtra("level1");
         level2 = it.getStringExtra("level2");
         level3 = it.getStringExtra("level3");
